@@ -1,0 +1,10 @@
+main.c:117:6:Finger_bending_stretch	16	static
+main.c:139:6:Four_Finger_bending	0	static
+main.c:151:6:Four_Finger_stretch	0	static
+main.c:163:6:Full_gripping	8	static
+main.c:178:6:backup_longNose_grasp	16	static
+main.c:208:6:HAL_UART_RxCpltCallback	16	static
+main.c:231:5:_write	24	static
+main.c:562:6:SystemClock_Config	104	static
+main.c:251:5:main	8	static
+main.c:624:6:Error_Handler	0	static

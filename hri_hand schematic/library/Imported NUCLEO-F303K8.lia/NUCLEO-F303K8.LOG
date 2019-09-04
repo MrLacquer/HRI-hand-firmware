@@ -1,0 +1,33 @@
+PCAD Importer Log
+Project : NUCLEO-F303K8.LibPkg
+
+Section : D:\_projects\01_Altium Project\MY_altium\190904_hri_hand\library\NUCLEO-F303K8.lia
+    Section : PCB Library - NUCLEO-F303K8.PcbLib
+        Section : Load Messages
+            Warning - 1 : Skipping Token NUCLEO-F303K8_SECTION1 On Line 159
+            Warning - 1 : Skipping Token NUCLEO-F303K8_SECTION2 On Line 310
+            Warning - 1 : Skipping Token attachedSymbol On Line 502
+            Warning - 1 : Skipping Token attachedSymbol On Line 503
+        EndSection
+
+        Section : Import Messages
+            Warning - 0 : PCAD Pattern Graphics [*MODULE_NUCLEO-F303K8][Primary] associated with PCAD Component [NUCLEO-F303K8] has been renamed to PCB FootPrint [*MODULE_NUCLEO-F303K8_NUCLEO-F303K8(Primary)].
+        EndSection
+    EndSection
+
+    Section : SCH Library - NUCLEO-F303K8.SchLib
+        Section : Parsing Messages
+            Warning - 1 : Skipping Token padStyleDef On Line 9
+            Warning - 1 : Skipping Token padStyleDef On Line 21
+            Warning - 1 : Skipping Token multiLayer On Line 96
+            Warning - 1 : Skipping Token layerContents On Line 128
+            Warning - 1 : Skipping Token layerContents On Line 134
+            Warning - 1 : Skipping Token layerContents On Line 141
+            Warning - 1 : Skipping Token layerContents On Line 149
+        EndSection
+
+        Section : Generating SCH Library - NUCLEO-F303K8.SchLib
+            Warning - 0 : PCAD Pattern Graphics [*MODULE_NUCLEO-F303K8][Primary] associated with PCAD Component [NUCLEO-F303K8] has been renamed to PCB FootPrint [*MODULE_NUCLEO-F303K8_NUCLEO-F303K8(Primary)].
+        EndSection
+    EndSection
+EndSection

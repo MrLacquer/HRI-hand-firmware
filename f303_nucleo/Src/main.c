@@ -228,15 +228,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	}
 }
 
-int _write(int fd, char *str, int len)
-{
-	for(int i=0;i<len;i++)
-	{
-        //send the data to the UART1.
-		HAL_UART_Transmit(&huart2, (uint8_t *)&str[i], 1, 0xFFFF);
-	}
-	return len;
-}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -304,7 +295,6 @@ int main(void)
   LED04_TOGGLE;
   HAL_Delay(200);
 
-  //HAL_UART_Receive_IT(&huart2, &rx2_data, 1);
   HAL_UART_Receive_IT(&huart1, rx1_data, UART1_BUF_SIZE);
 
   TIM2->CCR1 = 1000;
@@ -343,11 +333,6 @@ int main(void)
 	  //main_ii = temp_rx2_data;
 	  FLAG_Rx1Cplt = 0;
 	  HAL_UART_Receive_IT(&huart1, rx1_data, UART1_BUF_SIZE);
-	  //HAL_UART_Transmit(&huart1, &tx1_data, 1, 10);
-	  //HAL_UART_Transmit(&huart2, &tx2_data, 1, 10);
-
-	  //HAL_Delay(200);
-	 // printf("%d %d", motor_id, pris_val);
 
 	  /* * * * * * * * * * * * * *
 	   * full stretch of the finger     : 1000 pwm; which is 2.0ms.
@@ -398,163 +383,8 @@ int main(void)
 			  //tx1_data = pwm;
 			  HAL_UART_Transmit(&huart1, &pris_val, 1, 10);
 			  break;
-
-
 	  }
-/**** 20190726, PM 1:34 backup
-	  switch (temp_rx1_data)
-	  {
-		case 49:
-			TIM2->CCR1 = bend_test;		 	//index,  PA0
-			TIM2->CCR2 = bend_test;		 	//middle, PA1
-			//TIM2->CCR3 = bend_test;		 	//ring,   PA9
-			//TIM3->CCR2 = bend_test;			//little, PA4
-			HAL_Delay(1000);
 
-			bend_thumb_pwm_ii += 50;
-			TIM3->CCR3 = bend_thumb_pwm_ii;
-
-			TIM1->CCR4 = 900; //thumb finger
-
-
-			if(bend_thumb_pwm_ii > 1000)
-			{
-				bend_thumb_pwm_ii = 500;
-				TIM3->CCR3 = bend_thumb_pwm_ii;
-				HAL_Delay(1000);
-			}
-			HAL_Delay(1000);
-
-			//TIM3->CCR3 = 500;
-			break;
-
-		case 50:
-
-			TIM3->CCR3 = 620;
-			TIM1->CCR4 = 1000; //thumb finger
-
-			bend_test += 5;
-
-			//HAL_Delay(1000);
-			TIM2->CCR1 = bend_test;		 	//index,  PA0
-			TIM2->CCR2 = bend_test;		 	//middle, PA1
-
-			if(bend_test > 900)
-			{
-				bend_test = 800;
-				TIM2->CCR1 = bend_test;		 	//index,  PA0
-				TIM2->CCR2 = bend_test;		 	//middle, PA1
-			}
-			//HAL_Delay(1000);
-
-			//TIM3->CCR3 = 500;
-			break;
-
-		case 51:	//3
-
-			//TIM3->CCR3 = 620;
-			TIM3->CCR3 = 550;
-			//TIM1->CCR4 = 900; //thumb finger
-			bend_test = 750;
-
-			TIM2->CCR1 = bend_test;		 	//index,  PA0
-			TIM2->CCR2 = bend_test;		 	//middle, PA1
-			TIM2->CCR2 = bend_test;		 	//middle, PA1
-			TIM2->CCR3 = bend_test;		 	//ring,   PA9
-			TIM3->CCR2 = bend_test;			//little, PA4
-
-			HAL_Delay(1000);
-
-			if(thumb_test < 850)
-			{
-				thumb_test = 900;
-				TIM1->CCR4 = thumb_test; //thumb finger
-				HAL_Delay(1000);
-			}
-
-			thumb_test = thumb_test - 10;
-			TIM1->CCR4 = thumb_test;
-			printf("%d \n", thumb_test);
-			break;
-
-		case 52:	//4 stroke mm -> pwm test
-			pwm = (stroke_y * 25) + 500;
-
-			TIM2->CCR1 = pwm;		 	//index,  PA0
-			printf("%f, %f \n", pwm, stroke_y);
-			//HAL_Delay(100);
-
-			stroke_y = stroke_y + 0.1f;
-
-			if(stroke_y > 20)
-			{
-				stroke_y = 7;
-				TIM2->CCR1 = pwm;
-				HAL_Delay(1000);
-			}
-
-			//HAL_Delay(100);
-			break;
-
-
-
-		case 50000:	//물체잡기 시연, 50
-			LED02_ON;
-			HAL_Delay(200);
-			LED02_OFF;
-			HAL_Delay(200);
-			//TIM3->CCR3 = 600;
-			BEND_THUMB_JOINT;
-			HAL_Delay(200);
-
-			for(bend_pwm_ii = 1000; bend_pwm_ii > 730; bend_pwm_ii--)
-			{
-
-				TIM2->CCR1 = bend_pwm_ii;
-				TIM2->CCR2 = bend_pwm_ii;
-				TIM2->CCR3 = bend_pwm_ii;
-				TIM3->CCR2 = bend_pwm_ii;
-
-				HAL_Delay(5);
-
-			}
-			temp_rx1_data = 0;
-			break;
-
-		case 511111: //물체잡기 시연, 51
-			LED03_ON;
-			HAL_Delay(200);
-			LED03_OFF;
-			HAL_Delay(200);
-
-			for(stret_pwm_ii = bend_pwm_ii; stret_pwm_ii < 1000; stret_pwm_ii++)
-			{
-
-				TIM2->CCR1 = stret_pwm_ii;
-				TIM2->CCR2 = stret_pwm_ii;
-				TIM2->CCR3 = stret_pwm_ii;
-				TIM3->CCR2 = stret_pwm_ii;
-
-				HAL_Delay(5);
-			}
-			temp_rx1_data = 0;
-			STRET_THUMB_JOINT;
-
-			break;
-		case 4:
-			LED04_ON;
-			HAL_Delay(200);
-			LED04_OFF;
-			HAL_Delay(200);
-			break;
-		default:
-			LED01_OFF;
-			LED02_OFF;
-			LED03_OFF;
-			LED04_OFF;
-			break;
-	}
-***/
 
   }
   /* USER CODE END 3 */

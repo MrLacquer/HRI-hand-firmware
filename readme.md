@@ -1,4 +1,5 @@
 # HRI hand firmware
+Hardware X journal paper: [An Open-source Anthropomorphic Robot Hand System: HRI Hand](https://www.sciencedirect.com/science/article/pii/S2468067220300092?via%3Dihub)
 
 ## Overview
 This is a firmware developed for HRI hand in TrueSTUDIO for stm32.
